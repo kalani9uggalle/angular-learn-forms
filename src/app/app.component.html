@@ -2,13 +2,22 @@
 
 <form [formGroup]="registration">
   <label for="fname">First Name</label>
-  <input formControlName="name1" type="text" id="fname" ><br>
+  <input 
+  [class.is-invalid]="name1?.invalid && name1?.touched" 
+  formControlName="name1" type="text" id="fname" >
+  <div *ngIf="name1?.invalid && name1?.touched" >
+    
+    <small *ngIf="name1?.errors?.['required']" class="danger">Input field is required</small>
+    <small *ngIf="name1?.errors?.['minlength']" class="danger">Minimum 3 characters needed</small >
+  </div><br>
+  
+
   <label for="lname">Last Name</label>
-  <input formControlName="name2" type="text" id="lname"><br>
+  <input [class.is-invalid]="registration.get('name2')?.invalid && registration.get('name2')?.touched" formControlName="name2" type="text" id="lname"><br>
 
   <div formGroupName="address">
   <label for="postal code">postal code</label>
-  <input formControlName="postal_code" type="text" id="fname" ><br>
+  <input [class.is-invalid]="registration.get('postal_code')?.invalid && registration.get('postal_code')?.touched" formControlName="postal_code" type="text" id="fname" ><br>
   <label for="state">state</label>
   <input formControlName="state" type="text" id="lname"><br>
   <label for="city">city</label>
@@ -18,6 +27,6 @@
   <label for="agree">Check the box if you agree</label>
   <input formControlName="agree" type="checkbox" id="agree"><br>
   <input type="submit" id="submit" name="submit">
-  <input (click)="load_api_data()" type="button" id="load_api_data" name="load_api_data">
+  <!-- <input (click)="load_api_data()" type="button" id="load_api_data" name="load_api_data"> -->
 
 </form>

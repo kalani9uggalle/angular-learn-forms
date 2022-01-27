@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,7 +7,23 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AppComponent {
   title = 'Forms_proj';
-  registration :FormGroup =new FormGroup({
+
+
+  constructor(private fb:FormBuilder){
+
+  }
+  registration= this.fb.group({
+    name1:['',[Validators.required,Validators.minLength(3)]],
+    name2:['',[Validators.required]],
+    agree:false,
+    address:this.fb.group({
+      postal_code:['',Validators.required],
+      state:[''],
+      city:['']
+    })
+  })
+  
+  /* registration :FormGroup =new FormGroup({
     name1:new FormControl('Name',Validators.required),
     name2:new FormControl('',Validators.required),
     agree:new FormControl(false),
@@ -16,8 +32,8 @@ export class AppComponent {
       city:new FormControl('')
     })
   })
-
-  load_api_data(){
+ */
+  /* load_api_data(){
     this.registration.patchValue({
       name1:'Kalani',
     name2:'Prabodha',
@@ -26,6 +42,9 @@ export class AppComponent {
 
   })
 
+} */
+get name1(){
+  return this.registration.get('name1')
 }
 
 }
